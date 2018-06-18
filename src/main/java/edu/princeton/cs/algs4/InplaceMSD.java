@@ -59,7 +59,9 @@ public class InplaceMSD {
     // return dth character of s, -1 if d = length of string
     private static int charAt(String s, int d) {
         assert d >= 0 && d <= s.length();
-        if (d == s.length()) return -1;
+        if (d == s.length()) {
+	        return -1;
+        }
         return s.charAt(d);
     }
 
@@ -100,16 +102,19 @@ public class InplaceMSD {
         }
               
         // recursively sort for each character (excludes sentinel -1)
-        for (int r = 0; r < R; r++)
-            sort(a, tails[r], tails[r+1] - 1, d+1);
+        for (int r = 0; r < R; r++) {
+	        sort(a, tails[r], tails[r+1] - 1, d+1);
+        }
     }
 
 
     // insertion sort a[lo..hi], starting at dth character
     private static void insertion(String[] a, int lo, int hi, int d) {
-        for (int i = lo; i <= hi; i++)
-            for (int j = i; j > lo && less(a[j], a[j-1], d); j--)
-                exch(a, j, j-1);
+        for (int i = lo; i <= hi; i++) {
+	        for (int j = i; j > lo && less(a[j], a[j-1], d); j--) {
+		        exch(a, j, j - 1);
+	        }
+        }
     }
 
     // exchange a[i] and a[j]
@@ -123,8 +128,12 @@ public class InplaceMSD {
     private static boolean less(String v, String w, int d) {
         // assert v.substring(0, d).equals(w.substring(0, d));
         for (int i = d; i < Math.min(v.length(), w.length()); i++) {
-            if (v.charAt(i) < w.charAt(i)) return true;
-            if (v.charAt(i) > w.charAt(i)) return false;
+            if (v.charAt(i) < w.charAt(i)) {
+	            return true;
+            }
+            if (v.charAt(i) > w.charAt(i)) {
+	            return false;
+            }
         }
         return v.length() < w.length();
     }
@@ -141,8 +150,9 @@ public class InplaceMSD {
         String[] a = StdIn.readAllStrings();
         int n = a.length;
         sort(a);
-        for (int i = 0; i < n; i++)
-            StdOut.println(a[i]);
+        for (int i = 0; i < n; i++) {
+	        StdOut.println(a[i]);
+        }
     }
 }
 

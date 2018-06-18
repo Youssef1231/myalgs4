@@ -65,6 +65,7 @@ public class Counter implements Comparable<Counter> {
      *
      * @return a string representation of this counter
      */
+    @Override
     public String toString() {
         return count + " " + name;
     } 
@@ -82,9 +83,13 @@ public class Counter implements Comparable<Counter> {
      */
     @Override
     public int compareTo(Counter that) {
-        if      (this.count < that.count) return -1;
-        else if (this.count > that.count) return +1;
-        else                              return  0;
+        if      (this.count < that.count) {
+	        return -1;
+        } else if (this.count > that.count) {
+	        return +1;
+        } else {
+	        return  0;
+        }
     }
 
 

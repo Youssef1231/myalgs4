@@ -58,8 +58,11 @@ public class DirectedCycle {
         marked  = new boolean[G.V()];
         onStack = new boolean[G.V()];
         edgeTo  = new int[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            if (!marked[v] && cycle == null) dfs(G, v);
+        for (int v = 0; v < G.V(); v++) {
+	        if (!marked[v] && cycle == null) {
+		        dfs(G, v);
+	        }
+        }
     }
 
     // check that algorithm computes either the topological order or finds a directed cycle
@@ -69,7 +72,9 @@ public class DirectedCycle {
         for (int w : G.adj(v)) {
 
             // short circuit if directed cycle found
-            if (cycle != null) return;
+            if (cycle != null) {
+	            return;
+            }
 
             // found new vertex, so recur
             else if (!marked[w]) {
@@ -116,7 +121,9 @@ public class DirectedCycle {
             // verify cycle
             int first = -1, last = -1;
             for (int v : cycle()) {
-                if (first == -1) first = v;
+                if (first == -1) {
+	                first = v;
+                }
                 last = v;
             }
             if (first != last) {

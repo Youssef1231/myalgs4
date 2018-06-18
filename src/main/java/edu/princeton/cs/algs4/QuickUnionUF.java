@@ -117,8 +117,9 @@ public class QuickUnionUF {
      */
     public int find(int p) {
         validate(p);
-        while (p != parent[p])
-            p = parent[p];
+        while (p != parent[p]) {
+	        p = parent[p];
+        }
         return p;
     }
 
@@ -157,7 +158,9 @@ public class QuickUnionUF {
     public void union(int p, int q) {
         int rootP = find(p);
         int rootQ = find(q);
-        if (rootP == rootQ) return;
+        if (rootP == rootQ) {
+	        return;
+        }
         parent[rootP] = rootQ; 
         count--;
     }
@@ -176,7 +179,9 @@ public class QuickUnionUF {
         while (!StdIn.isEmpty()) {
             int p = StdIn.readInt();
             int q = StdIn.readInt();
-            if (uf.connected(p, q)) continue;
+            if (uf.connected(p, q)) {
+	            continue;
+            }
             uf.union(p, q);
             StdOut.println(p + " " + q);
         }

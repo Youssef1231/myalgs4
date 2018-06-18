@@ -69,7 +69,9 @@ public class DirectedDFS {
         marked = new boolean[G.V()];
         validateVertices(sources);
         for (int v : sources) {
-            if (!marked[v]) dfs(G, v);
+            if (!marked[v]) {
+	            dfs(G, v);
+            }
         }
     }
 
@@ -77,7 +79,9 @@ public class DirectedDFS {
         count++;
         marked[v] = true;
         for (int w : G.adj(v)) {
-            if (!marked[w]) dfs(G, w);
+            if (!marked[w]) {
+	            dfs(G, w);
+            }
         }
     }
 
@@ -106,8 +110,9 @@ public class DirectedDFS {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = marked.length;
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        if (v < 0 || v >= V) {
+	        throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        }
     }
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
@@ -147,7 +152,9 @@ public class DirectedDFS {
 
         // print out vertices reachable from sources
         for (int v = 0; v < G.V(); v++) {
-            if (dfs.marked(v)) StdOut.print(v + " ");
+            if (dfs.marked(v)) {
+	            StdOut.print(v + " ");
+            }
         }
         StdOut.println();
     }

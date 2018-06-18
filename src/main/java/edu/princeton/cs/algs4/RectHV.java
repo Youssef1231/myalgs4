@@ -159,10 +159,16 @@ public final class RectHV {
      */
     public double distanceSquaredTo(Point2D p) {
         double dx = 0.0, dy = 0.0;
-        if      (p.x() < xmin) dx = p.x() - xmin;
-        else if (p.x() > xmax) dx = p.x() - xmax;
-        if      (p.y() < ymin) dy = p.y() - ymin;
-        else if (p.y() > ymax) dy = p.y() - ymax;
+        if      (p.x() < xmin) {
+	        dx = p.x() - xmin;
+        } else if (p.x() > xmax) {
+	        dx = p.x() - xmax;
+        }
+        if      (p.y() < ymin) {
+	        dy = p.y() - ymin;
+        } else if (p.y() > ymax) {
+	        dy = p.y() - ymax;
+        }
         return dx*dx + dy*dy;
     }
 
@@ -175,14 +181,28 @@ public final class RectHV {
      */
     @Override
     public boolean equals(Object other) {
-        if (other == this) return true;
-        if (other == null) return false;
-        if (other.getClass() != this.getClass()) return false;
+        if (other == this) {
+	        return true;
+        }
+        if (other == null) {
+	        return false;
+        }
+        if (other.getClass() != this.getClass()) {
+	        return false;
+        }
         RectHV that = (RectHV) other;
-        if (this.xmin != that.xmin) return false;
-        if (this.ymin != that.ymin) return false;
-        if (this.xmax != that.xmax) return false;
-        if (this.ymax != that.ymax) return false;
+        if (this.xmin != that.xmin) {
+	        return false;
+        }
+        if (this.ymin != that.ymin) {
+	        return false;
+        }
+        if (this.xmax != that.xmax) {
+	        return false;
+        }
+        if (this.ymax != that.ymax) {
+	        return false;
+        }
         return true;
     }
 

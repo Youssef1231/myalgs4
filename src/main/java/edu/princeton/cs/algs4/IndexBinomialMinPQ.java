@@ -54,7 +54,9 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
      * @throws java.lang.IllegalArgumentException if {@code N < 0}
      */
 	public IndexBinomialMinPQ(int N) {
-		if (N < 0) throw new IllegalArgumentException("Cannot create a priority queue of negative size");
+		if (N < 0) {
+			throw new IllegalArgumentException("Cannot create a priority queue of negative size");
+		}
 		comparator = new MyComparator();
 		nodes = (Node<Key>[]) new Node[N];
 		this.n = N;
@@ -68,7 +70,9 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
      * @throws java.lang.IllegalArgumentException if {@code N < 0}
      */
 	public IndexBinomialMinPQ(int N, Comparator<Key> comparator) {
-		if (N < 0) throw new IllegalArgumentException("Cannot create a priority queue of negative size");
+		if (N < 0) {
+			throw new IllegalArgumentException("Cannot create a priority queue of negative size");
+		}
 		this.comparator = comparator;
 		nodes = (Node<Key>[]) new Node[N];
 		this.n = N;
@@ -91,8 +95,11 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	 * @return true if i is on the priority queue, false if not
 	 */
 	public boolean contains(int i) {
-		if (i < 0 || i >= n) throw new IllegalArgumentException();
-		else return nodes[i] != null;
+		if (i < 0 || i >= n) {
+			throw new IllegalArgumentException();
+		} else {
+			return nodes[i] != null;
+		}
 	}
 
 	/**
@@ -119,8 +126,12 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	 * @throws java.lang.IllegalArgumentException if the index is already in the queue
 	 */
 	public void insert(int i, Key key) {
-		if (i < 0 || i >= n) throw new IllegalArgumentException();
-		if (contains(i)) throw new IllegalArgumentException("Specified index is already in the queue");
+		if (i < 0 || i >= n) {
+			throw new IllegalArgumentException();
+		}
+		if (contains(i)) {
+			throw new IllegalArgumentException("Specified index is already in the queue");
+		}
 		Node<Key> x = new Node<Key>();
 		x.key = key;
 		x.index = i;
@@ -139,7 +150,9 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	 */
 	
 	public int minIndex() {
-		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		if (isEmpty()) {
+			throw new NoSuchElementException("Priority queue is empty");
+		}
 		Node<Key> min = head;
 		Node<Key> current = head;
 		while (current.sibling != null) {
@@ -157,7 +170,9 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	 */
 	
 	public Key minKey() {
-		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		if (isEmpty()) {
+			throw new NoSuchElementException("Priority queue is empty");
+		}
 		Node<Key> min = head;
 		Node<Key> current = head;
 		while (current.sibling != null) {
@@ -175,7 +190,9 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	 */
 	
 	public int delMin() {
-		if(isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		if(isEmpty()) {
+			throw new NoSuchElementException("Priority queue is empty");
+		}
 		Node<Key> min = eraseMin();
 		Node<Key> x = (min.child == null) ? min : min.child;
 		if (min.child != null) {
@@ -206,8 +223,12 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	 */
 	
 	public Key keyOf(int i) {
-		if (i < 0 || i >= n) throw new IllegalArgumentException();
-		if (!contains(i)) throw new IllegalArgumentException("Specified index is not in the queue");
+		if (i < 0 || i >= n) {
+			throw new IllegalArgumentException();
+		}
+		if (!contains(i)) {
+			throw new IllegalArgumentException("Specified index is not in the queue");
+		}
 		return nodes[i].key;
 	}
 
@@ -221,10 +242,17 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	 */
 	
 	public void changeKey(int i, Key key) {
-		if (i < 0 || i >= n) 		throw new IllegalArgumentException();
-		if (!contains(i))			throw new IllegalArgumentException("Specified index is not in the queue");
-		if (greater(nodes[i].key, key))  decreaseKey(i, key);
-		else 							 increaseKey(i, key);
+		if (i < 0 || i >= n) {
+			throw new IllegalArgumentException();
+		}
+		if (!contains(i)) {
+			throw new IllegalArgumentException("Specified index is not in the queue");
+		}
+		if (greater(nodes[i].key, key)) {
+			decreaseKey(i, key);
+		} else {
+			increaseKey(i, key);
+		}
 	}
 
 	/**
@@ -238,9 +266,15 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	 */
 	
 	public void decreaseKey(int i, Key key) {
-		if (i < 0 || i >= n) 		throw new IllegalArgumentException();
-		if (!contains(i))			throw new NoSuchElementException("Specified index is not in the queue");
-		if (greater(key, nodes[i].key))  throw new IllegalArgumentException("Calling with this argument would not decrease the key");
+		if (i < 0 || i >= n) {
+			throw new IllegalArgumentException();
+		}
+		if (!contains(i)) {
+			throw new NoSuchElementException("Specified index is not in the queue");
+		}
+		if (greater(key, nodes[i].key)) {
+			throw new IllegalArgumentException("Calling with this argument would not decrease the key");
+		}
 		Node<Key> x = nodes[i];
 		x.key = key;
 		swim(i);
@@ -257,9 +291,15 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	 */
 	
 	public void increaseKey(int i, Key key) {
-		if (i < 0 || i >= n) 		throw new IllegalArgumentException();
-		if (!contains(i))			throw new NoSuchElementException("Specified index is not in the queue");
-		if (greater(nodes[i].key, key))  throw new IllegalArgumentException("Calling with this argument would not increase the key");
+		if (i < 0 || i >= n) {
+			throw new IllegalArgumentException();
+		}
+		if (!contains(i)) {
+			throw new NoSuchElementException("Specified index is not in the queue");
+		}
+		if (greater(nodes[i].key, key)) {
+			throw new IllegalArgumentException("Calling with this argument would not increase the key");
+		}
 		delete(i);
 		insert(i, key);
 	}
@@ -273,8 +313,12 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	 */
 	
 	public void delete(int i) {
-		if (i < 0 || i >= n) 		throw new IllegalArgumentException();
-		if (!contains(i))			throw new NoSuchElementException("Specified index is not in the queue");
+		if (i < 0 || i >= n) {
+			throw new IllegalArgumentException();
+		}
+		if (!contains(i)) {
+			throw new NoSuchElementException("Specified index is not in the queue");
+		}
 		toTheRoot(i);
 		Node<Key> x = erase(i);
 		if (x.child != null) {
@@ -302,8 +346,12 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	
 	//Compares two keys
 	private boolean greater(Key n, Key m) {
-		if (n == null) return false;
-		if (m == null) return true;
+		if (n == null) {
+			return false;
+		}
+		if (m == null) {
+			return true;
+		}
 		return comparator.compare(n, m) > 0;
 	}
 	
@@ -363,7 +411,9 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 			x = x.sibling;
 		}
 		previous.sibling = x.sibling;
-		if (x == head) head = head.sibling;
+		if (x == head) {
+			head = head.sibling;
+		}
 		nodes[i] = null;
 		return x;
 	}
@@ -381,7 +431,9 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 			current = current.sibling;
 		}
 		previous.sibling = min.sibling;
-		if (min == head) head = min.sibling;
+		if (min == head) {
+			head = min.sibling;
+		}
 		nodes[min.index] = null;
 		return min;
 	}
@@ -392,11 +444,17 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	
 	//Merges two root lists into one, there can be up to 2 Binomial Trees of same order
 	private Node<Key> merge(Node<Key> h, Node<Key> x, Node<Key> y) {
-		if (x == null && y == null) return h;
-		else if (x == null) 		h.sibling = merge(y, null, y.sibling);
-		else if (y == null) 		h.sibling = merge(x, x.sibling, null);
-		else if (x.order < y.order) h.sibling = merge(x, x.sibling, y);
-		else 						h.sibling = merge(y, x, y.sibling);
+		if (x == null && y == null) {
+			return h;
+		} else if (x == null) {
+			h.sibling = merge(y, null, y.sibling);
+		} else if (y == null) {
+			h.sibling = merge(x, x.sibling, null);
+		} else if (x.order < y.order) {
+			h.sibling = merge(x, x.sibling, y);
+		} else {
+			h.sibling = merge(y, x, y.sibling);
+		}
 		return h;
 	}
 	
@@ -447,6 +505,7 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 	 * @return an Iterator over the indexes in the priority queue in ascending order
 	 */
 	
+	@Override
 	public Iterator<Integer> iterator() {
 		return new MyIterator();
 	}
@@ -462,7 +521,9 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 		}
 		
 		private Node<Key> clone(Node<Key> x, Node<Key> parent) {
-			if (x == null) return null;
+			if (x == null) {
+				return null;
+			}
 			Node<Key> node = new Node<Key>();
 			node.index = x.index;
 			node.key = x.key;
@@ -473,15 +534,20 @@ public class IndexBinomialMinPQ<Key> implements Iterable<Integer> {
 			return node;
 		}
 		
+		@Override
 		public boolean hasNext() {
 			return !data.isEmpty();
 		}
 		
+		@Override
 		public Integer next() {
-                        if (!hasNext()) throw new NoSuchElementException();
+                        if (!hasNext()) {
+	                        throw new NoSuchElementException();
+                        }
 			return data.delMin();
 		}
 		
+		@Override
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}

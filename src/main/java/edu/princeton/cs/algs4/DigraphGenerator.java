@@ -31,11 +31,20 @@ public class DigraphGenerator {
             this.w = w;
         }
 
+        @Override
         public int compareTo(Edge that) {
-            if (this.v < that.v) return -1;
-            if (this.v > that.v) return +1;
-            if (this.w < that.w) return -1;
-            if (this.w > that.w) return +1;
+            if (this.v < that.v) {
+	            return -1;
+            }
+            if (this.v > that.v) {
+	            return +1;
+            }
+            if (this.w < that.w) {
+	            return -1;
+            }
+            if (this.w > that.w) {
+	            return +1;
+            }
             return 0;
         }
     }
@@ -52,8 +61,12 @@ public class DigraphGenerator {
      * @throws IllegalArgumentException if no such simple digraph exists
      */
     public static Digraph simple(int V, int E) {
-        if (E > (long) V*(V-1)) throw new IllegalArgumentException("Too many edges");
-        if (E < 0)              throw new IllegalArgumentException("Too few edges");
+        if (E > (long) V*(V-1)) {
+	        throw new IllegalArgumentException("Too many edges");
+        }
+        if (E < 0) {
+	        throw new IllegalArgumentException("Too few edges");
+        }
         Digraph G = new Digraph(V);
         SET<Edge> set = new SET<Edge>();
         while (G.E() < E) {
@@ -80,14 +93,19 @@ public class DigraphGenerator {
      * @throws IllegalArgumentException if probability is not between 0 and 1
      */
     public static Digraph simple(int V, double p) {
-        if (p < 0.0 || p > 1.0)
-            throw new IllegalArgumentException("Probability must be between 0 and 1");
+        if (p < 0.0 || p > 1.0) {
+	        throw new IllegalArgumentException("Probability must be between 0 and 1");
+        }
         Digraph G = new Digraph(V);
-        for (int v = 0; v < V; v++)
-            for (int w = 0; w < V; w++)
-                if (v != w)
-                    if (StdRandom.bernoulli(p))
-                        G.addEdge(v, w);
+        for (int v = 0; v < V; v++) {
+	        for (int w = 0; w < V; w++) {
+		        if (v != w) {
+			        if (StdRandom.bernoulli(p)) {
+				        G.addEdge(v, w);
+			        }
+		        }
+	        }
+        }
         return G;
     }
 
@@ -110,13 +128,18 @@ public class DigraphGenerator {
      * @throws IllegalArgumentException if no such simple DAG exists
      */
     public static Digraph dag(int V, int E) {
-        if (E > (long) V*(V-1) / 2) throw new IllegalArgumentException("Too many edges");
-        if (E < 0)                  throw new IllegalArgumentException("Too few edges");
+        if (E > (long) V*(V-1) / 2) {
+	        throw new IllegalArgumentException("Too many edges");
+        }
+        if (E < 0) {
+	        throw new IllegalArgumentException("Too few edges");
+        }
         Digraph G = new Digraph(V);
         SET<Edge> set = new SET<Edge>();
         int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        for (int i = 0; i < V; i++) {
+	        vertices[i] = i;
+        }
         StdRandom.shuffle(vertices);
         while (G.E() < E) {
             int v = StdRandom.uniform(V);
@@ -142,8 +165,11 @@ public class DigraphGenerator {
         Digraph G = new Digraph(V);
         for (int v = 0; v < G.V(); v++) {
             for (int w = v+1; w < G.V(); w++) {
-                if (StdRandom.bernoulli(0.5)) G.addEdge(v, w);
-                else                          G.addEdge(w, v);
+                if (StdRandom.bernoulli(0.5)) {
+	                G.addEdge(v, w);
+                } else {
+	                G.addEdge(w, v);
+                }
             }
         }
         return G;
@@ -159,15 +185,20 @@ public class DigraphGenerator {
      * @return a random rooted-in DAG on {@code V} vertices and {@code E} edges
      */
     public static Digraph rootedInDAG(int V, int E) {
-        if (E > (long) V*(V-1) / 2) throw new IllegalArgumentException("Too many edges");
-        if (E < V-1)                throw new IllegalArgumentException("Too few edges");
+        if (E > (long) V*(V-1) / 2) {
+	        throw new IllegalArgumentException("Too many edges");
+        }
+        if (E < V-1) {
+	        throw new IllegalArgumentException("Too few edges");
+        }
         Digraph G = new Digraph(V);
         SET<Edge> set = new SET<Edge>();
 
         // fix a topological order
         int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        for (int i = 0; i < V; i++) {
+	        vertices[i] = i;
+        }
         StdRandom.shuffle(vertices);
 
         // one edge pointing from each vertex, other than the root = vertices[V-1]
@@ -200,15 +231,20 @@ public class DigraphGenerator {
      * @return a random rooted-out DAG on {@code V} vertices and {@code E} edges
      */
     public static Digraph rootedOutDAG(int V, int E) {
-        if (E > (long) V*(V-1) / 2) throw new IllegalArgumentException("Too many edges");
-        if (E < V-1)                throw new IllegalArgumentException("Too few edges");
+        if (E > (long) V*(V-1) / 2) {
+	        throw new IllegalArgumentException("Too many edges");
+        }
+        if (E < V-1) {
+	        throw new IllegalArgumentException("Too few edges");
+        }
         Digraph G = new Digraph(V);
         SET<Edge> set = new SET<Edge>();
 
         // fix a topological order
         int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        for (int i = 0; i < V; i++) {
+	        vertices[i] = i;
+        }
         StdRandom.shuffle(vertices);
 
         // one edge pointing from each vertex, other than the root = vertices[V-1]
@@ -263,8 +299,9 @@ public class DigraphGenerator {
     public static Digraph path(int V) {
         Digraph G = new Digraph(V);
         int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        for (int i = 0; i < V; i++) {
+	        vertices[i] = i;
+        }
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
@@ -280,8 +317,9 @@ public class DigraphGenerator {
     public static Digraph binaryTree(int V) {
         Digraph G = new Digraph(V);
         int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        for (int i = 0; i < V; i++) {
+	        vertices[i] = i;
+        }
         StdRandom.shuffle(vertices);
         for (int i = 1; i < V; i++) {
             G.addEdge(vertices[i], vertices[(i-1)/2]);
@@ -297,8 +335,9 @@ public class DigraphGenerator {
     public static Digraph cycle(int V) {
         Digraph G = new Digraph(V);
         int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        for (int i = 0; i < V; i++) {
+	        vertices[i] = i;
+        }
         StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
@@ -317,14 +356,17 @@ public class DigraphGenerator {
      * @throws IllegalArgumentException if either {@code V <= 0} or {@code E <= 0}
      */
     public static Digraph eulerianCycle(int V, int E) {
-        if (E <= 0)
-            throw new IllegalArgumentException("An Eulerian cycle must have at least one edge");
-        if (V <= 0)
-            throw new IllegalArgumentException("An Eulerian cycle must have at least one vertex");
+        if (E <= 0) {
+	        throw new IllegalArgumentException("An Eulerian cycle must have at least one edge");
+        }
+        if (V <= 0) {
+	        throw new IllegalArgumentException("An Eulerian cycle must have at least one vertex");
+        }
         Digraph G = new Digraph(V);
         int[] vertices = new int[E];
-        for (int i = 0; i < E; i++)
-            vertices[i] = StdRandom.uniform(V);
+        for (int i = 0; i < E; i++) {
+	        vertices[i] = StdRandom.uniform(V);
+        }
         for (int i = 0; i < E-1; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
         }
@@ -342,14 +384,17 @@ public class DigraphGenerator {
      * @throws IllegalArgumentException if either {@code V <= 0} or {@code E < 0}
      */
     public static Digraph eulerianPath(int V, int E) {
-        if (E < 0)
-            throw new IllegalArgumentException("negative number of edges");
-        if (V <= 0)
-            throw new IllegalArgumentException("An Eulerian path must have at least one vertex");
+        if (E < 0) {
+	        throw new IllegalArgumentException("negative number of edges");
+        }
+        if (V <= 0) {
+	        throw new IllegalArgumentException("An Eulerian path must have at least one vertex");
+        }
         Digraph G = new Digraph(V);
         int[] vertices = new int[E+1];
-        for (int i = 0; i < E+1; i++)
-            vertices[i] = StdRandom.uniform(V);
+        for (int i = 0; i < E+1; i++) {
+	        vertices[i] = StdRandom.uniform(V);
+        }
         for (int i = 0; i < E; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
         }
@@ -374,12 +419,15 @@ public class DigraphGenerator {
      * @throws IllegalArgumentException if {@code c} is larger than {@code V}
      */
     public static Digraph strong(int V, int E, int c) {
-        if (c >= V || c <= 0)
-            throw new IllegalArgumentException("Number of components must be between 1 and V");
-        if (E <= 2*(V-c))
-            throw new IllegalArgumentException("Number of edges must be at least 2(V-c)");
-        if (E > (long) V*(V-1) / 2)
-            throw new IllegalArgumentException("Too many edges");
+        if (c >= V || c <= 0) {
+	        throw new IllegalArgumentException("Number of components must be between 1 and V");
+        }
+        if (E <= 2*(V-c)) {
+	        throw new IllegalArgumentException("Number of edges must be at least 2(V-c)");
+        }
+        if (E > (long) V*(V-1) / 2) {
+	        throw new IllegalArgumentException("Too many edges");
+        }
 
         // the digraph
         Digraph G = new Digraph(V);
@@ -388,8 +436,9 @@ public class DigraphGenerator {
         SET<Edge> set = new SET<Edge>();
 
         int[] label = new int[V];
-        for (int v = 0; v < V; v++)
-            label[v] = StdRandom.uniform(c);
+        for (int v = 0; v < V; v++) {
+	        label[v] = StdRandom.uniform(c);
+        }
 
         // make all vertices with label c a strong component by
         // combining a rooted in-tree and a rooted out-tree
@@ -397,7 +446,9 @@ public class DigraphGenerator {
             // how many vertices in component c
             int count = 0;
             for (int v = 0; v < G.V(); v++) {
-                if (label[v] == i) count++;
+                if (label[v] == i) {
+	                count++;
+                }
             }
 
             // if (count == 0) System.err.println("less than desired number of strong components");
@@ -405,7 +456,9 @@ public class DigraphGenerator {
             int[] vertices = new int[count];
             int j = 0;
             for (int v = 0; v < V; v++) {
-                if (label[v] == i) vertices[j++] = v;
+                if (label[v] == i) {
+	                vertices[j++] = v;
+                }
             }
             StdRandom.shuffle(vertices);
 

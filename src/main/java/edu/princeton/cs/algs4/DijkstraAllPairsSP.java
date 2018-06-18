@@ -42,8 +42,9 @@ public class DijkstraAllPairsSP {
      */
     public DijkstraAllPairsSP(EdgeWeightedDigraph G) {
         all  = new DijkstraSP[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            all[v] = new DijkstraSP(G, v);
+        for (int v = 0; v < G.V(); v++) {
+	        all[v] = new DijkstraSP(G, v);
+        }
     }
 
     /**
@@ -94,8 +95,9 @@ public class DijkstraAllPairsSP {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = all.length;
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        if (v < 0 || v >= V) {
+	        throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        }
     }
 
 }

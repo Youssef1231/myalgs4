@@ -98,6 +98,7 @@ public class LinkedBag<Item> implements Iterable<Item> {
     /**
      * Returns an iterator that iterates over the items in the bag.
      */
+    @Override
     public Iterator<Item> iterator()  {
         return new ListIterator();  
     }
@@ -112,18 +113,23 @@ public class LinkedBag<Item> implements Iterable<Item> {
         }
 
         // is there a next item in the iterator?
+        @Override
         public boolean hasNext() {
             return current != null;
         }
 
         // this method is optional in Iterator interface
+        @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }
 
         // returns the next item in the iterator (and advances the iterator)
+        @Override
         public Item next() {
-            if (!hasNext()) throw new NoSuchElementException();
+            if (!hasNext()) {
+	            throw new NoSuchElementException();
+            }
             Item item = current.item;
             current = current.next; 
             return item;

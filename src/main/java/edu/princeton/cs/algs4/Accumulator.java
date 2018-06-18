@@ -68,7 +68,9 @@ public class Accumulator {
      * @return the sample variance of the data values
      */
     public double var() {
-        if (n <= 1) return Double.NaN;
+        if (n <= 1) {
+            return Double.NaN;
+        }
         return sum / (n - 1);
     }
 
@@ -92,6 +94,7 @@ public class Accumulator {
      * Returns a string representation of this accumulator.
      * @return a string representation of this accumulator
      */
+    @Override
     public String toString() {
         return "n = " + n + ", mean = " + mean() + ", stddev = " + stddev();
     }

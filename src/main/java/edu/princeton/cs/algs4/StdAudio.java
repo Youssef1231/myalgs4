@@ -119,9 +119,15 @@ public final class StdAudio {
     public static void play(double sample) {
 
         // clip if outside [-1, +1]
-        if (Double.isNaN(sample)) throw new IllegalArgumentException("sample is NaN");
-        if (sample < -1.0) sample = -1.0;
-        if (sample > +1.0) sample = +1.0;
+        if (Double.isNaN(sample)) {
+	        throw new IllegalArgumentException("sample is NaN");
+        }
+        if (sample < -1.0) {
+	        sample = -1.0;
+        }
+        if (sample > +1.0) {
+	        sample = +1.0;
+        }
 
         // convert to bytes
         short s = (short) (MAX_16_BIT * sample);
@@ -144,7 +150,9 @@ public final class StdAudio {
      * @throws IllegalArgumentException if {@code samples} is {@code null}
      */
     public static void play(double[] samples) {
-        if (samples == null) throw new IllegalArgumentException("argument to play() is null");
+        if (samples == null) {
+	        throw new IllegalArgumentException("argument to play() is null");
+        }
         for (int i = 0; i < samples.length; i++) {
             play(samples[i]);
         }
@@ -180,8 +188,9 @@ public final class StdAudio {
                 int bytesToRead = ais.available();
                 data = new byte[bytesToRead];
                 int bytesRead = ais.read(data);
-                if (bytesToRead != bytesRead)
-                    throw new IllegalStateException("read only " + bytesRead + " of " + bytesToRead + " bytes"); 
+                if (bytesToRead != bytesRead) {
+	                throw new IllegalStateException("read only " + bytesRead + " of " + bytesToRead + " bytes");
+                }
             }
 
             // try to read from URL
@@ -191,8 +200,9 @@ public final class StdAudio {
                 int bytesToRead = ais.available();
                 data = new byte[bytesToRead];
                 int bytesRead = ais.read(data);
-                if (bytesToRead != bytesRead)
-                    throw new IllegalStateException("read only " + bytesRead + " of " + bytesToRead + " bytes"); 
+                if (bytesToRead != bytesRead) {
+	                throw new IllegalStateException("read only " + bytesRead + " of " + bytesToRead + " bytes");
+                }
             }
         }
         catch (IOException e) {
@@ -258,7 +268,9 @@ public final class StdAudio {
      * @throws IllegalArgumentException if {@code filename} is {@code null}
      */
     public static synchronized void play(final String filename) {
-        if (filename == null) throw new IllegalArgumentException();
+        if (filename == null) {
+	        throw new IllegalArgumentException();
+        }
 
         InputStream is = StdAudio.class.getResourceAsStream(filename);
         if (is == null) {
@@ -298,7 +310,9 @@ public final class StdAudio {
         URL url = null;
         try {
             File file = new File(filename);
-            if (file.canRead()) url = file.toURI().toURL();
+            if (file.canRead()) {
+	            url = file.toURI().toURL();
+            }
         }
         catch (MalformedURLException e) {
             throw new IllegalArgumentException("could not play '" + filename + "'", e);
@@ -358,7 +372,9 @@ public final class StdAudio {
      * @throws IllegalArgumentException if {@code filename} is {@code null}
      */
     public static synchronized void loop(String filename) {
-        if (filename == null) throw new IllegalArgumentException();
+        if (filename == null) {
+	        throw new IllegalArgumentException();
+        }
 
         // code adapted from: http://stackoverflow.com/questions/26305/how-can-i-play-sound-in-java
         try {
@@ -389,8 +405,9 @@ public final class StdAudio {
     private static double[] note(double hz, double duration, double amplitude) {
         int n = (int) (StdAudio.SAMPLE_RATE * duration);
         double[] a = new double[n+1];
-        for (int i = 0; i <= n; i++)
-            a[i] = amplitude * Math.sin(2 * Math.PI * i * hz / StdAudio.SAMPLE_RATE);
+        for (int i = 0; i <= n; i++) {
+	        a[i] = amplitude * Math.sin(2 * Math.PI * i * hz / StdAudio.SAMPLE_RATE);
+        }
         return a;
     }
 

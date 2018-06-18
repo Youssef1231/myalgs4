@@ -77,16 +77,20 @@ public class GaussJordanElimination {
 
         // build augmented matrix
         a = new double[n][n+n+1];
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-                a[i][j] = A[i][j];
+        for (int i = 0; i < n; i++) {
+	        for (int j = 0; j < n; j++) {
+		        a[i][j] = A[i][j];
+	        }
+        }
 
         // only needed if you want to find certificate of infeasibility (or compute inverse)
-        for (int i = 0; i < n; i++)
-            a[i][n+i] = 1.0;
+        for (int i = 0; i < n; i++) {
+	        a[i][n+i] = 1.0;
+        }
 
-        for (int i = 0; i < n; i++)
-            a[i][n+n] = b[i];
+        for (int i = 0; i < n; i++) {
+	        a[i][n+n] = b[i];
+        }
 
         solve();
 
@@ -137,17 +141,25 @@ public class GaussJordanElimination {
         for (int i = 0; i < n; i++) {
             double alpha = a[i][q] / a[p][q];
             for (int j = 0; j <= n+n; j++) {
-                if (i != p && j != q) a[i][j] -= alpha * a[p][j];
+                if (i != p && j != q) {
+	                a[i][j] -= alpha * a[p][j];
+                }
             }
         }
 
         // zero out column q
-        for (int i = 0; i < n; i++)
-            if (i != p) a[i][q] = 0.0;
+        for (int i = 0; i < n; i++) {
+	        if (i != p) {
+		        a[i][q] = 0.0;
+	        }
+        }
 
         // scale row p (ok to go from q+1 to n, but do this for consistency with simplex pivot)
-        for (int j = 0; j <= n+n; j++)
-            if (j != q) a[p][j] /= a[p][q];
+        for (int j = 0; j <= n+n; j++) {
+	        if (j != q) {
+		        a[p][j] /= a[p][q];
+	        }
+        }
         a[p][q] = 1.0;
     }
 
@@ -160,10 +172,11 @@ public class GaussJordanElimination {
     public double[] primal() {
         double[] x = new double[n];
         for (int i = 0; i < n; i++) {
-            if (Math.abs(a[i][i]) > EPSILON)
-                x[i] = a[i][n+n] / a[i][i];
-            else if (Math.abs(a[i][n+n]) > EPSILON)
-                return null;
+            if (Math.abs(a[i][i]) > EPSILON) {
+	            x[i] = a[i][n+n] / a[i][i];
+            } else if (Math.abs(a[i][n+n]) > EPSILON) {
+	            return null;
+            }
         }
         return x;
     }
@@ -179,8 +192,9 @@ public class GaussJordanElimination {
         double[] y = new double[n];
         for (int i = 0; i < n; i++) {
             if ((Math.abs(a[i][i]) <= EPSILON) && (Math.abs(a[i][n+n]) > EPSILON)) {
-                for (int j = 0; j < n; j++)
-                    y[j] = a[i][n+j];
+                for (int j = 0; j < n; j++) {
+	                y[j] = a[i][n+j];
+                }
                 return y;
             }
         }
@@ -375,20 +389,25 @@ public class GaussJordanElimination {
         // n-by-n random system (likely full rank)
         int n = Integer.parseInt(args[0]);
         double[][] A = new double[n][n];
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-                A[i][j] = StdRandom.uniform(1000);
+        for (int i = 0; i < n; i++) {
+	        for (int j = 0; j < n; j++) {
+		        A[i][j] = StdRandom.uniform(1000);
+	        }
+        }
         double[] b = new double[n];
-        for (int i = 0; i < n; i++)
-            b[i] = StdRandom.uniform(1000);
+        for (int i = 0; i < n; i++) {
+	        b[i] = StdRandom.uniform(1000);
+        }
         test("random " + n + "-by-" + n + " (likely full rank)", A, b);
 
 
         // n-by-n random system (likely infeasible)
         A = new double[n][n];
-        for (int i = 0; i < n-1; i++)
-            for (int j = 0; j < n; j++)
-                A[i][j] = StdRandom.uniform(1000);
+        for (int i = 0; i < n-1; i++) {
+	        for (int j = 0; j < n; j++) {
+		        A[i][j] = StdRandom.uniform(1000);
+	        }
+        }
         for (int i = 0; i < n-1; i++) {
             double alpha = StdRandom.uniform(11) - 5.0;
             for (int j = 0; j < n; j++) {
@@ -396,8 +415,9 @@ public class GaussJordanElimination {
             }
         }
         b = new double[n];
-        for (int i = 0; i < n; i++)
-            b[i] = StdRandom.uniform(1000);
+        for (int i = 0; i < n; i++) {
+	        b[i] = StdRandom.uniform(1000);
+        }
         test("random " + n + "-by-" + n + " (likely infeasible)", A, b);
     }
 

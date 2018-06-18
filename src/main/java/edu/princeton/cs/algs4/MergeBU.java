@@ -50,10 +50,15 @@ public class MergeBU {
         // merge back to a[]
         int i = lo, j = mid+1;
         for (int k = lo; k <= hi; k++) {
-            if      (i > mid)              a[k] = aux[j++];  // this copying is unneccessary
-            else if (j > hi)               a[k] = aux[i++];
-            else if (less(aux[j], aux[i])) a[k] = aux[j++];
-            else                           a[k] = aux[i++];
+            if      (i > mid) {
+	            a[k] = aux[j++];  // this copying is unneccessary
+            } else if (j > hi) {
+	            a[k] = aux[i++];
+            } else if (less(aux[j], aux[i])) {
+	            a[k] = aux[j++];
+            } else {
+	            a[k] = aux[i++];
+            }
         }
 
     }
@@ -89,8 +94,11 @@ public class MergeBU {
     *  Check if array is sorted - useful for debugging.
     ***************************************************************************/
     private static boolean isSorted(Comparable[] a) {
-        for (int i = 1; i < a.length; i++)
-            if (less(a[i], a[i-1])) return false;
+        for (int i = 1; i < a.length; i++) {
+	        if (less(a[i], a[i-1])) {
+		        return false;
+	        }
+        }
         return true;
     }
 

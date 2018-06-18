@@ -63,7 +63,9 @@ public class EdgeWeightedGraph {
      * @throws IllegalArgumentException if {@code V < 0}
      */
     public EdgeWeightedGraph(int V) {
-        if (V < 0) throw new IllegalArgumentException("Number of vertices must be nonnegative");
+        if (V < 0) {
+	        throw new IllegalArgumentException("Number of vertices must be nonnegative");
+        }
         this.V = V;
         this.E = 0;
         adj = (Bag<Edge>[]) new Bag[V];
@@ -82,7 +84,9 @@ public class EdgeWeightedGraph {
      */
     public EdgeWeightedGraph(int V, int E) {
         this(V);
-        if (E < 0) throw new IllegalArgumentException("Number of edges must be nonnegative");
+        if (E < 0) {
+	        throw new IllegalArgumentException("Number of edges must be nonnegative");
+        }
         for (int i = 0; i < E; i++) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
@@ -106,7 +110,9 @@ public class EdgeWeightedGraph {
     public EdgeWeightedGraph(In in) {
         this(in.readInt());
         int E = in.readInt();
-        if (E < 0) throw new IllegalArgumentException("Number of edges must be nonnegative");
+        if (E < 0) {
+	        throw new IllegalArgumentException("Number of edges must be nonnegative");
+        }
         for (int i = 0; i < E; i++) {
             int v = in.readInt();
             int w = in.readInt();
@@ -159,8 +165,9 @@ public class EdgeWeightedGraph {
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        if (v < 0 || v >= V) {
+	        throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        }
     }
 
     /**
@@ -220,7 +227,9 @@ public class EdgeWeightedGraph {
                 }
                 // add only one copy of each self loop (self loops will be consecutive)
                 else if (e.other(v) == v) {
-                    if (selfLoops % 2 == 0) list.add(e);
+                    if (selfLoops % 2 == 0) {
+	                    list.add(e);
+                    }
                     selfLoops++;
                 }
             }
@@ -235,6 +244,7 @@ public class EdgeWeightedGraph {
      * @return the number of vertices <em>V</em>, followed by the number of edges <em>E</em>,
      *         followed by the <em>V</em> adjacency lists of edges
      */
+    @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append(V + " " + E + NEWLINE);

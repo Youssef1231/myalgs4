@@ -71,7 +71,9 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
-        if (key == null) throw new IllegalArgumentException("calls get() with null key");
+        if (key == null) {
+	        throw new IllegalArgumentException("calls get() with null key");
+        }
         return st.get(key);
     }
 
@@ -86,9 +88,14 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
-        if (key == null) throw new IllegalArgumentException("calls put() with null key");
-        if (val == null) st.remove(key);
-        else             st.put(key, val);
+        if (key == null) {
+	        throw new IllegalArgumentException("calls put() with null key");
+        }
+        if (val == null) {
+	        st.remove(key);
+        } else {
+	        st.put(key, val);
+        }
     }
 
     /**
@@ -99,7 +106,9 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
-        if (key == null) throw new IllegalArgumentException("calls delete() with null key");
+        if (key == null) {
+	        throw new IllegalArgumentException("calls delete() with null key");
+        }
         st.remove(key);
     }
 
@@ -112,7 +121,9 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(Key key) {
-        if (key == null) throw new IllegalArgumentException("calls contains() with null key");
+        if (key == null) {
+	        throw new IllegalArgumentException("calls contains() with null key");
+        }
         return st.containsKey(key);
     }
 
@@ -157,6 +168,7 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @return     an iterator to all of the keys in this symbol table
      * @deprecated Replaced by {@link #keys()}.
      */
+    @Override
     @Deprecated
     public Iterator<Key> iterator() {
         return st.keySet().iterator();
@@ -169,7 +181,9 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @throws NoSuchElementException if this symbol table is empty
      */
     public Key min() {
-        if (isEmpty()) throw new NoSuchElementException("calls min() with empty symbol table");
+        if (isEmpty()) {
+	        throw new NoSuchElementException("calls min() with empty symbol table");
+        }
         return st.firstKey();
     }
 
@@ -180,7 +194,9 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @throws NoSuchElementException if this symbol table is empty
      */
     public Key max() {
-        if (isEmpty()) throw new NoSuchElementException("calls max() with empty symbol table");
+        if (isEmpty()) {
+	        throw new NoSuchElementException("calls max() with empty symbol table");
+        }
         return st.lastKey();
     }
 
@@ -193,9 +209,13 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key ceiling(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to ceiling() is null");
+        if (key == null) {
+	        throw new IllegalArgumentException("argument to ceiling() is null");
+        }
         Key k = st.ceilingKey(key);
-        if (k == null) throw new NoSuchElementException("all keys are less than " + key);
+        if (k == null) {
+	        throw new NoSuchElementException("all keys are less than " + key);
+        }
         return k;
     }
 
@@ -208,9 +228,13 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key floor(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to floor() is null");
+        if (key == null) {
+	        throw new IllegalArgumentException("argument to floor() is null");
+        }
         Key k = st.floorKey(key);
-        if (k == null) throw new NoSuchElementException("all keys are greater than " + key);
+        if (k == null) {
+	        throw new NoSuchElementException("all keys are greater than " + key);
+        }
         return k;
     }
 
@@ -225,8 +249,9 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
             String key = StdIn.readString();
             st.put(key, i);
         }
-        for (String s : st.keys())
-            StdOut.println(s + " " + st.get(s));
+        for (String s : st.keys()) {
+	        StdOut.println(s + " " + st.get(s));
+        }
     }
 }
 

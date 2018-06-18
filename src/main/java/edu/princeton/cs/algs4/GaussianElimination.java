@@ -75,15 +75,20 @@ public class GaussianElimination {
         m = A.length;
         n = A[0].length;
 
-        if (b.length != m) throw new IllegalArgumentException("Dimensions disagree");
+        if (b.length != m) {
+	        throw new IllegalArgumentException("Dimensions disagree");
+        }
 
         // build augmented matrix
         a = new double[m][n+1];
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++)
-                a[i][j] = A[i][j];
-        for (int i = 0; i < m; i++)
-            a[i][n] = b[i];
+        for (int i = 0; i < m; i++) {
+	        for (int j = 0; j < n; j++) {
+		        a[i][j] = A[i][j];
+	        }
+        }
+        for (int i = 0; i < m; i++) {
+	        a[i][n] = b[i];
+        }
 
         forwardElimination();
 
@@ -147,10 +152,11 @@ public class GaussianElimination {
                 sum += a[i][j] * x[j];
             }
 
-            if (Math.abs(a[i][i]) > EPSILON)
-                x[i] = (a[i][n] - sum) / a[i][i];
-            else if (Math.abs(a[i][n] - sum) > EPSILON)
-                return null;
+            if (Math.abs(a[i][i]) > EPSILON) {
+	            x[i] = (a[i][n] - sum) / a[i][i];
+            } else if (Math.abs(a[i][n] - sum) > EPSILON) {
+	            return null;
+            }
         }
 
         // redundant rows
@@ -159,8 +165,9 @@ public class GaussianElimination {
             for (int j = 0; j < n; j++) {
                 sum += a[i][j] * x[j];
             }
-            if (Math.abs(a[i][n] - sum) > EPSILON)
-                return null;
+            if (Math.abs(a[i][n] - sum) > EPSILON) {
+	            return null;
+            }
         }
         return x;
     }
@@ -179,7 +186,9 @@ public class GaussianElimination {
 
     // check that Ax = b
     private boolean certifySolution(double[][] A, double[] b) {
-        if (!isFeasible()) return true;
+        if (!isFeasible()) {
+	        return true;
+        }
         double[] x = primal();
         for (int i = 0; i < m; i++) {
             double sum = 0.0;
@@ -342,12 +351,15 @@ public class GaussianElimination {
         // n-by-n random system
         int n = Integer.parseInt(args[0]);
         double[][] A = new double[n][n];
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-                A[i][j] = StdRandom.uniform(1000);
+        for (int i = 0; i < n; i++) {
+	        for (int j = 0; j < n; j++) {
+		        A[i][j] = StdRandom.uniform(1000);
+	        }
+        }
         double[] b = new double[n];
-        for (int i = 0; i < n; i++)
-            b[i] = StdRandom.uniform(1000);
+        for (int i = 0; i < n; i++) {
+	        b[i] = StdRandom.uniform(1000);
+        }
 
         test(n + "-by-" + n + " (probably nonsingular)", A, b);
     }

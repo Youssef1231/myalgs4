@@ -101,10 +101,13 @@ public class DepthFirstPaths {
      */
     public Iterable<Integer> pathTo(int v) {
         validateVertex(v);
-        if (!hasPathTo(v)) return null;
+        if (!hasPathTo(v)) {
+	        return null;
+        }
         Stack<Integer> path = new Stack<Integer>();
-        for (int x = v; x != s; x = edgeTo[x])
-            path.push(x);
+        for (int x = v; x != s; x = edgeTo[x]) {
+	        path.push(x);
+        }
         path.push(s);
         return path;
     }
@@ -112,8 +115,9 @@ public class DepthFirstPaths {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = marked.length;
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        if (v < 0 || v >= V) {
+	        throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        }
     }
 
     /**
@@ -131,8 +135,11 @@ public class DepthFirstPaths {
             if (dfs.hasPathTo(v)) {
                 StdOut.printf("%d to %d:  ", s, v);
                 for (int x : dfs.pathTo(v)) {
-                    if (x == s) StdOut.print(x);
-                    else        StdOut.print("-" + x);
+                    if (x == s) {
+	                    StdOut.print(x);
+                    } else {
+	                    StdOut.print("-" + x);
+                    }
                 }
                 StdOut.println();
             }

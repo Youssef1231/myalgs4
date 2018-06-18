@@ -45,7 +45,9 @@ public class QuickX {
 
     // quicksort the subarray from a[lo] to a[hi]
     private static void sort(Comparable[] a, int lo, int hi) { 
-        if (hi <= lo) return;
+        if (hi <= lo) {
+	        return;
+        }
 
         // cutoff to insertion sort (Insertion.sort() uses half-open intervals)
         int n = hi - lo + 1;
@@ -77,14 +79,20 @@ public class QuickX {
 
         // a[lo] is unique smallest element
         while (less(v, a[--j])) {
-            if (j == lo + 1) return lo;
+            if (j == lo + 1) {
+	            return lo;
+            }
         }
 
         // the main loop
         while (i < j) { 
             exch(a, i, j);
-            while (less(a[++i], v)) ;
-            while (less(v, a[--j])) ;
+            while (less(a[++i], v)) {
+	            ;
+            }
+            while (less(v, a[--j])) {
+	            ;
+            }
         }
 
         // put partitioning item v at a[j]
@@ -122,8 +130,11 @@ public class QuickX {
     *  Check if array is sorted - useful for debugging.
     ***************************************************************************/
     private static boolean isSorted(Comparable[] a) {
-        for (int i = 1; i < a.length; i++)
-            if (less(a[i], a[i-1])) return false;
+        for (int i = 1; i < a.length; i++) {
+	        if (less(a[i], a[i-1])) {
+		        return false;
+	        }
+        }
         return true;
     }
 

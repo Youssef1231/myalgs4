@@ -64,7 +64,9 @@ public class BinomialMinPQ<Key> implements Iterable<Key> {
 	 */
 	public BinomialMinPQ(Key[] a) {
 		comp = new MyComparator();
-		for (Key k : a) insert(k);
+		for (Key k : a) {
+			insert(k);
+		}
 	}
 	
 	/**
@@ -75,7 +77,9 @@ public class BinomialMinPQ<Key> implements Iterable<Key> {
 	 */
 	public BinomialMinPQ(Comparator<Key> C, Key[] a) {
 		comp = C;
-		for (Key k : a) insert(k);
+		for (Key k : a) {
+			insert(k);
+		}
 	}
 
 	/**
@@ -124,7 +128,9 @@ public class BinomialMinPQ<Key> implements Iterable<Key> {
 	 * @return the minimum key currently in the priority queue
 	 */
 	public Key minKey() {
-		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		if (isEmpty()) {
+			throw new NoSuchElementException("Priority queue is empty");
+		}
 		Node min = head;
 		Node current = head;
 		while (current.sibling != null) {
@@ -141,7 +147,9 @@ public class BinomialMinPQ<Key> implements Iterable<Key> {
 	 * @return the minimum key
 	 */
 	public Key delMin() {
-		if(isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		if(isEmpty()) {
+			throw new NoSuchElementException("Priority queue is empty");
+		}
 		Node min = eraseMin();
 		Node x = (min.child == null) ? min : min.child;
 		if (min.child != null) {
@@ -169,7 +177,9 @@ public class BinomialMinPQ<Key> implements Iterable<Key> {
 	 * @return the union of two heaps
 	 */
 	public BinomialMinPQ<Key> union(BinomialMinPQ<Key> heap) {
-		if (heap == null) throw new IllegalArgumentException("Cannot merge a Binomial Heap with null");
+		if (heap == null) {
+			throw new IllegalArgumentException("Cannot merge a Binomial Heap with null");
+		}
 		this.head = merge(new Node(), this.head, heap.head).sibling;
 		Node x = this.head;
 		Node prevx = null, nextx = x.sibling;
@@ -197,8 +207,12 @@ public class BinomialMinPQ<Key> implements Iterable<Key> {
 	
 	//Compares two keys
 	private boolean greater(Key n, Key m) {
-		if (n == null) return false;
-		if (m == null) return true;
+		if (n == null) {
+			return false;
+		}
+		if (m == null) {
+			return true;
+		}
 		return comp.compare(n, m) > 0;
 	}
 	
@@ -222,7 +236,9 @@ public class BinomialMinPQ<Key> implements Iterable<Key> {
 			current = current.sibling;
 		}
 		previous.sibling = min.sibling;
-		if (min == head) head = min.sibling;
+		if (min == head) {
+			head = min.sibling;
+		}
 		return min;
 	}
 	
@@ -232,11 +248,17 @@ public class BinomialMinPQ<Key> implements Iterable<Key> {
 	
 	//Merges two root lists into one, there can be up to 2 Binomial Trees of same order
         private Node merge(Node h, Node x, Node y) {
-            if (x == null && y == null) return h;
-            else if (x == null) h.sibling = merge(y, null, y.sibling);
-            else if (y == null) h.sibling = merge(x, x.sibling, null);
-            else if (x.order < y.order) h.sibling = merge(x, x.sibling, y);
-            else                        h.sibling = merge(y, x, y.sibling);
+            if (x == null && y == null) {
+	            return h;
+            } else if (x == null) {
+	            h.sibling = merge(y, null, y.sibling);
+            } else if (y == null) {
+	            h.sibling = merge(x, x.sibling, null);
+            } else if (x.order < y.order) {
+	            h.sibling = merge(x, x.sibling, y);
+            } else {
+	            h.sibling = merge(y, x, y.sibling);
+            }
             return h;
 	}
 	
@@ -252,6 +274,7 @@ public class BinomialMinPQ<Key> implements Iterable<Key> {
 	 * hasNext() : 	Worst case is O(1)
 	 * @return an Iterator over the keys in the priority queue in ascending order
 	 */
+	@Override
 	public Iterator<Key> iterator() {
 		return new MyIterator();
 	}
@@ -267,7 +290,9 @@ public class BinomialMinPQ<Key> implements Iterable<Key> {
 		}
 		
 		private Node clone(Node x, Node parent) {
-			if (x == null) return null;
+			if (x == null) {
+				return null;
+			}
 			Node node = new Node();
 			node.key = x.key;
 			node.sibling = clone(x.sibling, parent);
@@ -275,15 +300,20 @@ public class BinomialMinPQ<Key> implements Iterable<Key> {
 			return node;
 		}
 		
+		@Override
 		public boolean hasNext() {
 			return !data.isEmpty();
 		}
 		
+		@Override
 		public Key next() {
-                        if (!hasNext()) throw new NoSuchElementException();
+                        if (!hasNext()) {
+	                        throw new NoSuchElementException();
+                        }
 			return data.delMin();
 		}
 		
+		@Override
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}

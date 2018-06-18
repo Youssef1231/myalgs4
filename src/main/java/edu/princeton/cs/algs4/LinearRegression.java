@@ -144,6 +144,7 @@ public class LinearRegression {
      *         including the best-fit line and the coefficient of determination
      *         <em>R</em><sup>2</sup>
      */
+    @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append(String.format("%.2f n + %.2f", slope(), intercept()));

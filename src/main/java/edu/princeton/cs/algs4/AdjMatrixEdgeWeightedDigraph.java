@@ -48,7 +48,9 @@ public class AdjMatrixEdgeWeightedDigraph {
      * @throws IllegalArgumentException if {@code V < 0}
      */
     public AdjMatrixEdgeWeightedDigraph(int V) {
-        if (V < 0) throw new IllegalArgumentException("number of vertices must be nonnegative");
+        if (V < 0) {
+	        throw new IllegalArgumentException("number of vertices must be nonnegative");
+        }
         this.V = V;
         this.E = 0;
         this.adj = new DirectedEdge[V][V];
@@ -63,8 +65,12 @@ public class AdjMatrixEdgeWeightedDigraph {
      */
     public AdjMatrixEdgeWeightedDigraph(int V, int E) {
         this(V);
-        if (E < 0) throw new IllegalArgumentException("number of edges must be nonnegative");
-        if (E > V*V) throw new IllegalArgumentException("too many edges");
+        if (E < 0) {
+	        throw new IllegalArgumentException("number of edges must be nonnegative");
+        }
+        if (E > V*V) {
+	        throw new IllegalArgumentException("too many edges");
+        }
 
         // can be inefficient
         while (this.E != E) {
@@ -127,18 +133,23 @@ public class AdjMatrixEdgeWeightedDigraph {
             this.v = v;
         }
 
+        @Override
         public Iterator<DirectedEdge> iterator() {
             return this;
         }
 
+        @Override
         public boolean hasNext() {
             while (w < V) {
-                if (adj[v][w] != null) return true;
+                if (adj[v][w] != null) {
+	                return true;
+                }
                 w++;
             }
             return false;
         }
 
+        @Override
         public DirectedEdge next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
@@ -146,6 +157,7 @@ public class AdjMatrixEdgeWeightedDigraph {
             return adj[v][w++];
         }
 
+        @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }
@@ -157,6 +169,7 @@ public class AdjMatrixEdgeWeightedDigraph {
      * @return the number of vertices <em>V</em>, followed by the number of edges <em>E</em>,
      *   followed by the <em>V</em> adjacency lists of edges
      */
+    @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append(V + " " + E + NEWLINE);
@@ -172,8 +185,9 @@ public class AdjMatrixEdgeWeightedDigraph {
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        if (v < 0 || v >= V) {
+	        throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        }
     }
 
 

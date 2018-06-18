@@ -64,8 +64,9 @@ public class BreadthFirstDirectedPaths {
         marked = new boolean[G.V()];
         distTo = new int[G.V()];
         edgeTo = new int[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            distTo[v] = INFINITY;
+        for (int v = 0; v < G.V(); v++) {
+	        distTo[v] = INFINITY;
+        }
         validateVertex(s);
         bfs(G, s);
     }
@@ -82,8 +83,9 @@ public class BreadthFirstDirectedPaths {
         marked = new boolean[G.V()];
         distTo = new int[G.V()];
         edgeTo = new int[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            distTo[v] = INFINITY;
+        for (int v = 0; v < G.V(); v++) {
+	        distTo[v] = INFINITY;
+        }
         validateVertices(sources);
         bfs(G, sources);
     }
@@ -161,11 +163,14 @@ public class BreadthFirstDirectedPaths {
     public Iterable<Integer> pathTo(int v) {
         validateVertex(v);
 
-        if (!hasPathTo(v)) return null;
+        if (!hasPathTo(v)) {
+	        return null;
+        }
         Stack<Integer> path = new Stack<Integer>();
         int x;
-        for (x = v; distTo[x] != 0; x = edgeTo[x])
-            path.push(x);
+        for (x = v; distTo[x] != 0; x = edgeTo[x]) {
+	        path.push(x);
+        }
         path.push(x);
         return path;
     }
@@ -173,8 +178,9 @@ public class BreadthFirstDirectedPaths {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = marked.length;
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        if (v < 0 || v >= V) {
+	        throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        }
     }
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
@@ -208,8 +214,11 @@ public class BreadthFirstDirectedPaths {
             if (bfs.hasPathTo(v)) {
                 StdOut.printf("%d to %d (%d):  ", s, v, bfs.distTo(v));
                 for (int x : bfs.pathTo(v)) {
-                    if (x == s) StdOut.print(x);
-                    else        StdOut.print("->" + x);
+                    if (x == s) {
+	                    StdOut.print(x);
+                    } else {
+	                    StdOut.print("->" + x);
+                    }
                 }
                 StdOut.println();
             }

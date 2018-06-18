@@ -50,10 +50,15 @@ public class MergeX {
 
         int i = lo, j = mid+1;
         for (int k = lo; k <= hi; k++) {
-            if      (i > mid)              dst[k] = src[j++];
-            else if (j > hi)               dst[k] = src[i++];
-            else if (less(src[j], src[i])) dst[k] = src[j++];   // to ensure stability
-            else                           dst[k] = src[i++];
+            if      (i > mid) {
+	            dst[k] = src[j++];
+            } else if (j > hi) {
+	            dst[k] = src[i++];
+            } else if (less(src[j], src[i])) {
+	            dst[k] = src[j++];   // to ensure stability
+            } else {
+	            dst[k] = src[i++];
+            }
         }
 
         // postcondition: dst[lo .. hi] is sorted subarray
@@ -96,9 +101,11 @@ public class MergeX {
 
     // sort from a[lo] to a[hi] using insertion sort
     private static void insertionSort(Comparable[] a, int lo, int hi) {
-        for (int i = lo; i <= hi; i++)
-            for (int j = i; j > lo && less(a[j], a[j-1]); j--)
-                exch(a, j, j-1);
+        for (int i = lo; i <= hi; i++) {
+	        for (int j = i; j > lo && less(a[j], a[j-1]); j--) {
+		        exch(a, j, j - 1);
+	        }
+        }
     }
 
 
@@ -148,10 +155,15 @@ public class MergeX {
 
         int i = lo, j = mid+1;
         for (int k = lo; k <= hi; k++) {
-            if      (i > mid)                          dst[k] = src[j++];
-            else if (j > hi)                           dst[k] = src[i++];
-            else if (less(src[j], src[i], comparator)) dst[k] = src[j++];
-            else                                       dst[k] = src[i++];
+            if      (i > mid) {
+	            dst[k] = src[j++];
+            } else if (j > hi) {
+	            dst[k] = src[i++];
+            } else if (less(src[j], src[i], comparator)) {
+	            dst[k] = src[j++];
+            } else {
+	            dst[k] = src[i++];
+            }
         }
 
         // postcondition: dst[lo .. hi] is sorted subarray
@@ -180,9 +192,11 @@ public class MergeX {
 
     // sort from a[lo] to a[hi] using insertion sort
     private static void insertionSort(Object[] a, int lo, int hi, Comparator comparator) {
-        for (int i = lo; i <= hi; i++)
-            for (int j = i; j > lo && less(a[j], a[j-1], comparator); j--)
-                exch(a, j, j-1);
+        for (int i = lo; i <= hi; i++) {
+	        for (int j = i; j > lo && less(a[j], a[j-1], comparator); j--) {
+		        exch(a, j, j - 1);
+	        }
+        }
     }
 
 
@@ -194,8 +208,11 @@ public class MergeX {
     }
 
     private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i-1])) return false;
+        for (int i = lo + 1; i <= hi; i++) {
+	        if (less(a[i], a[i-1])) {
+		        return false;
+	        }
+        }
         return true;
     }
 
@@ -204,8 +221,11 @@ public class MergeX {
     }
 
     private static boolean isSorted(Object[] a, int lo, int hi, Comparator comparator) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i-1], comparator)) return false;
+        for (int i = lo + 1; i <= hi; i++) {
+	        if (less(a[i], a[i-1], comparator)) {
+		        return false;
+	        }
+        }
         return true;
     }
 

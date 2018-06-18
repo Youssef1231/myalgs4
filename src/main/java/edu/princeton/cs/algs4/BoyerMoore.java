@@ -61,10 +61,12 @@ public class BoyerMoore {
 
         // position of rightmost occurrence of c in the pattern
         right = new int[R];
-        for (int c = 0; c < R; c++)
-            right[c] = -1;
-        for (int j = 0; j < pat.length(); j++)
-            right[pat.charAt(j)] = j;
+        for (int c = 0; c < R; c++) {
+	        right[c] = -1;
+        }
+        for (int j = 0; j < pat.length(); j++) {
+	        right[pat.charAt(j)] = j;
+        }
     }
 
     /**
@@ -76,15 +78,18 @@ public class BoyerMoore {
     public BoyerMoore(char[] pattern, int R) {
         this.R = R;
         this.pattern = new char[pattern.length];
-        for (int j = 0; j < pattern.length; j++)
-            this.pattern[j] = pattern[j];
+        for (int j = 0; j < pattern.length; j++) {
+	        this.pattern[j] = pattern[j];
+        }
 
         // position of rightmost occurrence of c in the pattern
         right = new int[R];
-        for (int c = 0; c < R; c++)
-            right[c] = -1;
-        for (int j = 0; j < pattern.length; j++)
-            right[pattern[j]] = j;
+        for (int c = 0; c < R; c++) {
+	        right[c] = -1;
+        }
+        for (int j = 0; j < pattern.length; j++) {
+	        right[pattern[j]] = j;
+        }
     }
 
     /**
@@ -107,7 +112,9 @@ public class BoyerMoore {
                     break;
                 }
             }
-            if (skip == 0) return i;    // found
+            if (skip == 0) {
+	            return i;    // found
+            }
         }
         return n;                       // not found
     }
@@ -133,7 +140,9 @@ public class BoyerMoore {
                     break;
                 }
             }
-            if (skip == 0) return i;    // found
+            if (skip == 0) {
+	            return i;    // found
+            }
         }
         return n;                       // not found
     }
@@ -161,13 +170,15 @@ public class BoyerMoore {
         StdOut.println("text:    " + txt);
 
         StdOut.print("pattern: ");
-        for (int i = 0; i < offset1; i++)
-            StdOut.print(" ");
+        for (int i = 0; i < offset1; i++) {
+	        StdOut.print(" ");
+        }
         StdOut.println(pat);
 
         StdOut.print("pattern: ");
-        for (int i = 0; i < offset2; i++)
-            StdOut.print(" ");
+        for (int i = 0; i < offset2; i++) {
+	        StdOut.print(" ");
+        }
         StdOut.println(pat);
     }
 }

@@ -47,8 +47,12 @@ public class Interval2D {
      *    that two-dimensional interval; false otherwise
      */
     public boolean intersects(Interval2D that) {
-        if (!this.x.intersects(that.x)) return false;
-        if (!this.y.intersects(that.y)) return false;
+        if (!this.x.intersects(that.x)) {
+	        return false;
+        }
+        if (!this.y.intersects(that.y)) {
+	        return false;
+        }
         return true;
     }
 
@@ -74,6 +78,7 @@ public class Interval2D {
      * @return a string representation of this two-dimensional interval
      *    in the form [xmin, xmax] x [ymin, ymax]
      */
+    @Override
     public String toString() {
         return x + " x " + y;
     }
@@ -83,10 +88,17 @@ public class Interval2D {
      * @param other the other interval
      * @return true if this interval equals the other interval; false otherwise
      */
+    @Override
     public boolean equals(Object other) {
-        if (other == this) return true;
-        if (other == null) return false;
-        if (other.getClass() != this.getClass()) return false;
+        if (other == this) {
+	        return true;
+        }
+        if (other == null) {
+	        return false;
+        }
+        if (other.getClass() != this.getClass()) {
+	        return false;
+        }
         Interval2D that = (Interval2D) other;
         return this.x.equals(that.x) && this.y.equals(that.y);
     }
@@ -96,6 +108,7 @@ public class Interval2D {
      * Returns an integer hash code for this interval.  
      * @return an integer hash code for this interval 
      */
+    @Override
     public int hashCode() {
         int hash1 = x.hashCode();
         int hash2 = y.hashCode();
@@ -134,8 +147,11 @@ public class Interval2D {
             double y = StdRandom.uniform(0.0, 1.0);
             Point2D point = new Point2D(x, y);
 
-            if (box.contains(point)) counter.increment();
-            else                     point.draw();
+            if (box.contains(point)) {
+	            counter.increment();
+            } else {
+	            point.draw();
+            }
         }
 
         StdOut.println(counter);

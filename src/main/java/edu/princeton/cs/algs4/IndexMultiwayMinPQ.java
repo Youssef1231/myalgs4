@@ -56,14 +56,20 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
      * @throws java.lang.IllegalArgumentException if {@code D < 2}
      */
 	public IndexMultiwayMinPQ(int N, int D) {
-		if (N < 0) throw new IllegalArgumentException("Maximum number of elements cannot be negative");
-		if (D < 2) throw new IllegalArgumentException("Dimension should be 2 or over");
+		if (N < 0) {
+			throw new IllegalArgumentException("Maximum number of elements cannot be negative");
+		}
+		if (D < 2) {
+			throw new IllegalArgumentException("Dimension should be 2 or over");
+		}
 		this.d = D;
 		nmax = N;
 		pq = new int[nmax+D];
 		qp = new int[nmax+D];
 		keys = (Key[]) new Comparable[nmax+D];
-		for (int i = 0; i < nmax+D; qp[i++] = -1);
+		for (int i = 0; i < nmax+D; qp[i++] = -1) {
+			;
+		}
 		comp = new MyComparator();
 	}
 	
@@ -77,14 +83,20 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
      * @throws java.lang.IllegalArgumentException if {@code D < 2}
      */
 	public IndexMultiwayMinPQ(int N, Comparator<Key> C, int D) {
-		if (N < 0) throw new IllegalArgumentException("Maximum number of elements cannot be negative");
-		if (D < 2) throw new IllegalArgumentException("Dimension should be 2 or over");
+		if (N < 0) {
+			throw new IllegalArgumentException("Maximum number of elements cannot be negative");
+		}
+		if (D < 2) {
+			throw new IllegalArgumentException("Dimension should be 2 or over");
+		}
 		this.d = D;
 		nmax = N;
 		pq = new int[nmax+D];
 		qp = new int[nmax+D];
 		keys = (Key[]) new Comparable[nmax+D];
-		for (int i = 0; i < nmax+D; qp[i++] = -1);
+		for (int i = 0; i < nmax+D; qp[i++] = -1) {
+			;
+		}
 		comp = C;
 	}
 
@@ -105,7 +117,9 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 	 * @return true if i is on the priority queue, false if not
 	 */
 	public boolean contains(int i) {
-		if (i < 0 ||i >= nmax) throw new IllegalArgumentException();
+		if (i < 0 ||i >= nmax) {
+			throw new IllegalArgumentException();
+		}
 		return qp[i+d] != -1;
 	}
 
@@ -127,8 +141,12 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 	 * @throws java.lang.IllegalArgumentException if the index is already in the queue
 	 */
 	public void insert(int i, Key key) {
-		if (i < 0 || i >= nmax) throw new IllegalArgumentException();
-		if (contains(i)) throw new IllegalArgumentException("Index already there");
+		if (i < 0 || i >= nmax) {
+			throw new IllegalArgumentException();
+		}
+		if (contains(i)) {
+			throw new IllegalArgumentException("Index already there");
+		}
 		keys[i+d] = key;
 		pq[n+d] = i;
 		qp[i+d] = n;
@@ -142,7 +160,9 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 	 * @return the index associated with the minimum key
 	 */
 	public int minIndex() {
-		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		if (isEmpty()) {
+			throw new NoSuchElementException("Priority queue is empty");
+		}
 		return pq[d];
 	}
 
@@ -153,7 +173,9 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 	 * @return the minimum key currently in the priority queue
 	 */
 	public Key minKey() {
-		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		if (isEmpty()) {
+			throw new NoSuchElementException("Priority queue is empty");
+		}
 		return keys[pq[d]+d];
 	}
 
@@ -164,7 +186,9 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 	 * @return the index associated with the minimum key
 	 */
 	public int delMin() {
-		if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+		if (isEmpty()) {
+			throw new NoSuchElementException("Priority queue is empty");
+		}
 		int min = pq[d];
 		exch(0, --n);
 		sink(0);
@@ -183,8 +207,12 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 	 * @return the key associated with index i
 	 */
 	public Key keyOf(int i) {
-		if (i < 0 || i >= nmax) throw new IllegalArgumentException();
-		if (! contains(i)) throw new NoSuchElementException("Specified index is not in the queue");
+		if (i < 0 || i >= nmax) {
+			throw new IllegalArgumentException();
+		}
+		if (! contains(i)) {
+			throw new NoSuchElementException("Specified index is not in the queue");
+		}
 		return keys[i+d];
 	}
 
@@ -198,8 +226,12 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 	 * @throws java.lang.IllegalArgumentException if the index has no key associated with
 	 */
 	public void changeKey(int i, Key key) {
-		if (i < 0 || i >= nmax) throw new IllegalArgumentException();
-		if (! contains(i)) throw new NoSuchElementException("Specified index is not in the queue");
+		if (i < 0 || i >= nmax) {
+			throw new IllegalArgumentException();
+		}
+		if (! contains(i)) {
+			throw new NoSuchElementException("Specified index is not in the queue");
+		}
 		Key tmp = keys[i+d];
 		keys[i+d] = key;
 		if (comp.compare(key, tmp) <= 0) { swim(qp[i+d]);}
@@ -216,9 +248,15 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 	 * @throws java.lang.IllegalArgumentException if the given key is greater than the current key
 	 */
 	public void decreaseKey(int i, Key key) {
-		if (i < 0 || i >=nmax) throw new IllegalArgumentException();
-		if (! contains(i)) throw new NoSuchElementException("Specified index is not in the queue");
-		if (comp.compare(keys[i+d], key) <= 0) throw new IllegalArgumentException("Calling with this argument would not decrease the Key");
+		if (i < 0 || i >=nmax) {
+			throw new IllegalArgumentException();
+		}
+		if (! contains(i)) {
+			throw new NoSuchElementException("Specified index is not in the queue");
+		}
+		if (comp.compare(keys[i+d], key) <= 0) {
+			throw new IllegalArgumentException("Calling with this argument would not decrease the Key");
+		}
 		keys[i+d] = key;
 		swim(qp[i+d]);
 	}
@@ -233,9 +271,15 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 	 * @throws java.lang.IllegalArgumentException if the given key is lower than the current key
 	 */
 	public void increaseKey(int i, Key key) {
-		if (i < 0 || i >=nmax) throw new IllegalArgumentException();
-		if (! contains(i)) throw new NoSuchElementException("Specified index is not in the queue");
-		if (comp.compare(keys[i+d], key) >= 0) throw new IllegalArgumentException("Calling with this argument would not increase the Key");
+		if (i < 0 || i >=nmax) {
+			throw new IllegalArgumentException();
+		}
+		if (! contains(i)) {
+			throw new NoSuchElementException("Specified index is not in the queue");
+		}
+		if (comp.compare(keys[i+d], key) >= 0) {
+			throw new IllegalArgumentException("Calling with this argument would not increase the Key");
+		}
 		keys[i+d] = key;
 		sink(qp[i+d]);
 	}
@@ -248,8 +292,12 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 	 * @throws java.util.NoSuchElementException if the given index has no key associated with
 	 */
 	public void delete(int i) {
-		if (i < 0 || i >= nmax) throw new IllegalArgumentException();
-		if (! contains(i)) throw new NoSuchElementException("Specified index is not in the queue");
+		if (i < 0 || i >= nmax) {
+			throw new IllegalArgumentException();
+		}
+		if (! contains(i)) {
+			throw new NoSuchElementException("Specified index is not in the queue");
+		}
 		int idx = qp[i+d];
 		exch(idx, --n);
 		swim(idx);
@@ -291,7 +339,9 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 	
 	//Moves downward
 	private void sink(int i) {
-		if (d*i+1 >= n) return;
+		if (d*i+1 >= n) {
+			return;
+		}
 		int min = minChild(i);
 		while (min < n && greater(i, min)) {
 			exch(i, min);
@@ -309,7 +359,9 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 		int loBound = d*i+1, hiBound = d*i+d;
 		int min = loBound;
 		for (int cur = loBound; cur <= hiBound; cur++) {
-			if (cur < n && greater(min, cur)) min = cur;
+			if (cur < n && greater(min, cur)) {
+				min = cur;
+			}
 		}
 		return min;
 	}
@@ -327,6 +379,7 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 	 * @return an Iterator over the indexes in the priority queue in ascending order
 	 */
 	
+	@Override
 	public Iterator<Integer> iterator() {
 		return new MyIterator();
 	}
@@ -342,15 +395,20 @@ public class IndexMultiwayMinPQ<Key> implements Iterable<Integer> {
 			}
 		}
 
+		@Override
 		public boolean hasNext() {
 			return !clone.isEmpty();
 		}
 		
+		@Override
 		public Integer next() {
-                        if (!hasNext()) throw new NoSuchElementException();
+                        if (!hasNext()) {
+	                        throw new NoSuchElementException();
+                        }
 			return clone.delMin();
 		}
 		
+		@Override
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}

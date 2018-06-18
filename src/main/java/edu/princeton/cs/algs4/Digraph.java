@@ -67,7 +67,9 @@ public class Digraph {
      * @throws IllegalArgumentException if {@code V < 0}
      */
     public Digraph(int V) {
-        if (V < 0) throw new IllegalArgumentException("Number of vertices in a Digraph must be nonnegative");
+        if (V < 0) {
+	        throw new IllegalArgumentException("Number of vertices in a Digraph must be nonnegative");
+        }
         this.V = V;
         this.E = 0;
         indegree = new int[V];
@@ -91,14 +93,18 @@ public class Digraph {
     public Digraph(In in) {
         try {
             this.V = in.readInt();
-            if (V < 0) throw new IllegalArgumentException("number of vertices in a Digraph must be nonnegative");
+            if (V < 0) {
+	            throw new IllegalArgumentException("number of vertices in a Digraph must be nonnegative");
+            }
             indegree = new int[V];
             adj = (Bag<Integer>[]) new Bag[V];
             for (int v = 0; v < V; v++) {
                 adj[v] = new Bag<Integer>();
             }
             int E = in.readInt();
-            if (E < 0) throw new IllegalArgumentException("number of edges in a Digraph must be nonnegative");
+            if (E < 0) {
+	            throw new IllegalArgumentException("number of edges in a Digraph must be nonnegative");
+            }
             for (int i = 0; i < E; i++) {
                 int v = in.readInt();
                 int w = in.readInt();
@@ -118,8 +124,9 @@ public class Digraph {
     public Digraph(Digraph G) {
         this(G.V());
         this.E = G.E();
-        for (int v = 0; v < V; v++)
-            this.indegree[v] = G.indegree(v);
+        for (int v = 0; v < V; v++) {
+	        this.indegree[v] = G.indegree(v);
+        }
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original
             Stack<Integer> reverse = new Stack<Integer>();
@@ -153,8 +160,9 @@ public class Digraph {
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        if (v < 0 || v >= V) {
+	        throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        }
     }
 
     /**
@@ -231,6 +239,7 @@ public class Digraph {
      * @return the number of vertices <em>V</em>, followed by the number of edges <em>E</em>,  
      *         followed by the <em>V</em> adjacency lists
      */
+    @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append(V + " vertices, " + E + " edges " + NEWLINE);

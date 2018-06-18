@@ -62,8 +62,12 @@ public class FordFulkerson {
         V = G.V();
         validate(s);
         validate(t);
-        if (s == t)               throw new IllegalArgumentException("Source equals sink");
-        if (!isFeasible(G, s, t)) throw new IllegalArgumentException("Initial flow is infeasible");
+        if (s == t) {
+	        throw new IllegalArgumentException("Source equals sink");
+        }
+        if (!isFeasible(G, s, t)) {
+	        throw new IllegalArgumentException("Initial flow is infeasible");
+        }
 
         // while there exists an augmenting path, use it
         value = excess(G, t);
@@ -111,8 +115,9 @@ public class FordFulkerson {
 
     // throw an IllegalArgumentException if v is outside prescibed range
     private void validate(int v)  {
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        if (v < 0 || v >= V) {
+	        throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        }
     }
 
 
@@ -155,8 +160,11 @@ public class FordFulkerson {
     private double excess(FlowNetwork G, int v) {
         double excess = 0.0;
         for (FlowEdge e : G.adj(v)) {
-            if (v == e.from()) excess -= e.flow();
-            else               excess += e.flow();
+            if (v == e.from()) {
+	            excess -= e.flow();
+            } else {
+	            excess += e.flow();
+            }
         }
         return excess;
     }
@@ -186,8 +194,9 @@ public class FordFulkerson {
             return false;
         }
         for (int v = 0; v < G.V(); v++) {
-            if (v == s || v == t) continue;
-            else if (Math.abs(excess(G, v)) > FLOATING_POINT_EPSILON) {
+            if (v == s || v == t) {
+	            continue;
+            } else if (Math.abs(excess(G, v)) > FLOATING_POINT_EPSILON) {
                 System.err.println("Net flow out of " + v + " doesn't equal zero");
                 return false;
             }
@@ -220,8 +229,9 @@ public class FordFulkerson {
         double mincutValue = 0.0;
         for (int v = 0; v < G.V(); v++) {
             for (FlowEdge e : G.adj(v)) {
-                if ((v == e.from()) && inCut(e.from()) && !inCut(e.to()))
-                    mincutValue += e.capacity();
+                if ((v == e.from()) && inCut(e.from()) && !inCut(e.to())) {
+	                mincutValue += e.capacity();
+                }
             }
         }
 
@@ -253,15 +263,18 @@ public class FordFulkerson {
         StdOut.println("Max flow from " + s + " to " + t);
         for (int v = 0; v < G.V(); v++) {
             for (FlowEdge e : G.adj(v)) {
-                if ((v == e.from()) && e.flow() > 0)
-                    StdOut.println("   " + e);
+                if ((v == e.from()) && e.flow() > 0) {
+	                StdOut.println("   " + e);
+                }
             }
         }
 
         // print min-cut
         StdOut.print("Min cut: ");
         for (int v = 0; v < G.V(); v++) {
-            if (maxflow.inCut(v)) StdOut.print(v + " ");
+            if (maxflow.inCut(v)) {
+	            StdOut.print(v + " ");
+            }
         }
         StdOut.println();
 

@@ -55,16 +55,19 @@ public class TopM {
             pq.insert(transaction); 
 
             // remove minimum if m+1 entries on the PQ
-            if (pq.size() > m) 
-                pq.delMin();
+            if (pq.size() > m) {
+	            pq.delMin();
+            }
         }   // top m entries are on the PQ
 
         // print entries on PQ in reverse order
         Stack<Transaction> stack = new Stack<Transaction>();
-        for (Transaction transaction : pq)
-            stack.push(transaction);
-        for (Transaction transaction : stack)
-            StdOut.println(transaction);
+        for (Transaction transaction : pq) {
+	        stack.push(transaction);
+        }
+        for (Transaction transaction : stack) {
+	        StdOut.println(transaction);
+        }
     } 
 } 
 

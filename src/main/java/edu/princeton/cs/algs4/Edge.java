@@ -41,9 +41,15 @@ public class Edge implements Comparable<Edge> {
      * @throws IllegalArgumentException if {@code weight} is {@code NaN}
      */
     public Edge(int v, int w, double weight) {
-        if (v < 0) throw new IllegalArgumentException("vertex index must be a nonnegative integer");
-        if (w < 0) throw new IllegalArgumentException("vertex index must be a nonnegative integer");
-        if (Double.isNaN(weight)) throw new IllegalArgumentException("Weight is NaN");
+        if (v < 0) {
+	        throw new IllegalArgumentException("vertex index must be a nonnegative integer");
+        }
+        if (w < 0) {
+	        throw new IllegalArgumentException("vertex index must be a nonnegative integer");
+        }
+        if (Double.isNaN(weight)) {
+	        throw new IllegalArgumentException("Weight is NaN");
+        }
         this.v = v;
         this.w = w;
         this.weight = weight;
@@ -76,9 +82,13 @@ public class Edge implements Comparable<Edge> {
      *         endpoints of this edge
      */
     public int other(int vertex) {
-        if      (vertex == v) return w;
-        else if (vertex == w) return v;
-        else throw new IllegalArgumentException("Illegal endpoint");
+        if      (vertex == v) {
+	        return w;
+        } else if (vertex == w) {
+	        return v;
+        } else {
+	        throw new IllegalArgumentException("Illegal endpoint");
+        }
     }
 
     /**
@@ -101,6 +111,7 @@ public class Edge implements Comparable<Edge> {
      *
      * @return a string representation of this edge
      */
+    @Override
     public String toString() {
         return String.format("%d-%d %.5f", v, w, weight);
     }

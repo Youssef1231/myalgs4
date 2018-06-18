@@ -51,8 +51,11 @@ public class EdgeWeightedDirectedCycle {
         marked  = new boolean[G.V()];
         onStack = new boolean[G.V()];
         edgeTo  = new DirectedEdge[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            if (!marked[v]) dfs(G, v);
+        for (int v = 0; v < G.V(); v++) {
+	        if (!marked[v]) {
+		        dfs(G, v);
+	        }
+        }
 
         // check that digraph has a cycle
         assert check();
@@ -66,7 +69,9 @@ public class EdgeWeightedDirectedCycle {
             int w = e.to();
 
             // short circuit if directed cycle found
-            if (cycle != null) return;
+            if (cycle != null) {
+	            return;
+            }
 
             // found new vertex, so recur
             else if (!marked[w]) {
@@ -120,7 +125,9 @@ public class EdgeWeightedDirectedCycle {
             // verify cycle
             DirectedEdge first = null, last = null;
             for (DirectedEdge e : cycle()) {
-                if (first == null) first = e;
+                if (first == null) {
+	                first = e;
+                }
                 if (last != null) {
                     if (last.to() != e.from()) {
                         System.err.printf("cycle edges %s and %s not incident\n", last, e);
@@ -153,8 +160,9 @@ public class EdgeWeightedDirectedCycle {
         int F = Integer.parseInt(args[2]);
         EdgeWeightedDigraph G = new EdgeWeightedDigraph(V);
         int[] vertices = new int[V];
-        for (int i = 0; i < V; i++)
-            vertices[i] = i;
+        for (int i = 0; i < V; i++) {
+	        vertices[i] = i;
+        }
         StdRandom.shuffle(vertices);
         for (int i = 0; i < E; i++) {
             int v, w;

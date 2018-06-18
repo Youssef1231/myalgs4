@@ -72,8 +72,9 @@ public class BellmanFordSP {
         distTo  = new double[G.V()];
         edgeTo  = new DirectedEdge[G.V()];
         onQueue = new boolean[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            distTo[v] = Double.POSITIVE_INFINITY;
+        for (int v = 0; v < G.V(); v++) {
+	        distTo[v] = Double.POSITIVE_INFINITY;
+        }
         distTo[s] = 0.0;
 
         // Bellman-Ford algorithm
@@ -103,7 +104,9 @@ public class BellmanFordSP {
             }
             if (cost++ % G.V() == 0) {
                 findNegativeCycle();
-                if (hasNegativeCycle()) return;  // found a negative cycle
+                if (hasNegativeCycle()) {
+	                return;  // found a negative cycle
+                }
             }
         }
     }
@@ -131,9 +134,11 @@ public class BellmanFordSP {
     private void findNegativeCycle() {
         int V = edgeTo.length;
         EdgeWeightedDigraph spt = new EdgeWeightedDigraph(V);
-        for (int v = 0; v < V; v++)
-            if (edgeTo[v] != null)
-                spt.addEdge(edgeTo[v]);
+        for (int v = 0; v < V; v++) {
+	        if (edgeTo[v] != null) {
+		        spt.addEdge(edgeTo[v]);
+	        }
+        }
 
         EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(spt);
         cycle = finder.cycle();
@@ -150,8 +155,9 @@ public class BellmanFordSP {
      */
     public double distTo(int v) {
         validateVertex(v);
-        if (hasNegativeCycle())
-            throw new UnsupportedOperationException("Negative cost cycle exists");
+        if (hasNegativeCycle()) {
+	        throw new UnsupportedOperationException("Negative cost cycle exists");
+        }
         return distTo[v];
     }
 
@@ -178,9 +184,12 @@ public class BellmanFordSP {
      */
     public Iterable<DirectedEdge> pathTo(int v) {
         validateVertex(v);
-        if (hasNegativeCycle())
-            throw new UnsupportedOperationException("Negative cost cycle exists");
-        if (!hasPathTo(v)) return null;
+        if (hasNegativeCycle()) {
+	        throw new UnsupportedOperationException("Negative cost cycle exists");
+        }
+        if (!hasPathTo(v)) {
+	        return null;
+        }
         Stack<DirectedEdge> path = new Stack<DirectedEdge>();
         for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
             path.push(e);
@@ -216,7 +225,9 @@ public class BellmanFordSP {
                 return false;
             }
             for (int v = 0; v < G.V(); v++) {
-                if (v == s) continue;
+                if (v == s) {
+	                continue;
+                }
                 if (edgeTo[v] == null && distTo[v] != Double.POSITIVE_INFINITY) {
                     System.err.println("distTo[] and edgeTo[] inconsistent");
                     return false;
@@ -236,10 +247,14 @@ public class BellmanFordSP {
 
             // check that all edges e = v->w on SPT satisfy distTo[w] == distTo[v] + e.weight()
             for (int w = 0; w < G.V(); w++) {
-                if (edgeTo[w] == null) continue;
+                if (edgeTo[w] == null) {
+	                continue;
+                }
                 DirectedEdge e = edgeTo[w];
                 int v = e.from();
-                if (w != e.to()) return false;
+                if (w != e.to()) {
+	                return false;
+                }
                 if (distTo[v] + e.weight() != distTo[w]) {
                     System.err.println("edge " + e + " on shortest path not tight");
                     return false;
@@ -255,8 +270,9 @@ public class BellmanFordSP {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = distTo.length;
-        if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        if (v < 0 || v >= V) {
+	        throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+        }
     }
 
     /**
@@ -273,8 +289,9 @@ public class BellmanFordSP {
 
         // print negative cycle
         if (sp.hasNegativeCycle()) {
-            for (DirectedEdge e : sp.negativeCycle())
-                StdOut.println(e);
+            for (DirectedEdge e : sp.negativeCycle()) {
+	            StdOut.println(e);
+            }
         }
 
         // print shortest paths

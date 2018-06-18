@@ -118,7 +118,9 @@ public class BTree<Key extends Comparable<Key>, Value>  {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to get() is null");
+        if (key == null) {
+	        throw new IllegalArgumentException("argument to get() is null");
+        }
         return search(root, key, height);
     }
 
@@ -128,15 +130,18 @@ public class BTree<Key extends Comparable<Key>, Value>  {
         // external node
         if (ht == 0) {
             for (int j = 0; j < x.m; j++) {
-                if (eq(key, children[j].key)) return (Value) children[j].val;
+                if (eq(key, children[j].key)) {
+	                return (Value) children[j].val;
+                }
             }
         }
 
         // internal node
         else {
             for (int j = 0; j < x.m; j++) {
-                if (j+1 == x.m || less(key, children[j+1].key))
-                    return search(children[j].next, key, ht-1);
+                if (j+1 == x.m || less(key, children[j+1].key)) {
+	                return search(children[j].next, key, ht-1);
+                }
             }
         }
         return null;
@@ -153,10 +158,14 @@ public class BTree<Key extends Comparable<Key>, Value>  {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
-        if (key == null) throw new IllegalArgumentException("argument key to put() is null");
+        if (key == null) {
+	        throw new IllegalArgumentException("argument key to put() is null");
+        }
         Node u = insert(root, key, val, height); 
         n++;
-        if (u == null) return;
+        if (u == null) {
+	        return;
+        }
 
         // need to split root
         Node t = new Node(2);
@@ -173,7 +182,9 @@ public class BTree<Key extends Comparable<Key>, Value>  {
         // external node
         if (ht == 0) {
             for (j = 0; j < h.m; j++) {
-                if (less(key, h.children[j].key)) break;
+                if (less(key, h.children[j].key)) {
+	                break;
+                }
             }
         }
 
@@ -182,7 +193,9 @@ public class BTree<Key extends Comparable<Key>, Value>  {
             for (j = 0; j < h.m; j++) {
                 if ((j+1 == h.m) || less(key, h.children[j+1].key)) {
                     Node u = insert(h.children[j++].next, key, val, ht-1);
-                    if (u == null) return null;
+                    if (u == null) {
+	                    return null;
+                    }
                     t.key = u.children[0].key;
                     t.next = u;
                     break;
@@ -190,20 +203,25 @@ public class BTree<Key extends Comparable<Key>, Value>  {
             }
         }
 
-        for (int i = h.m; i > j; i--)
-            h.children[i] = h.children[i-1];
+        for (int i = h.m; i > j; i--) {
+	        h.children[i] = h.children[i-1];
+        }
         h.children[j] = t;
         h.m++;
-        if (h.m < M) return null;
-        else         return split(h);
+        if (h.m < M) {
+	        return null;
+        } else {
+	        return split(h);
+        }
     }
 
     // split node in half
     private Node split(Node h) {
         Node t = new Node(M/2);
         h.m = M/2;
-        for (int j = 0; j < M/2; j++)
-            t.children[j] = h.children[M/2+j]; 
+        for (int j = 0; j < M/2; j++) {
+	        t.children[j] = h.children[M/2+j];
+        }
         return t;    
     }
 
@@ -212,6 +230,7 @@ public class BTree<Key extends Comparable<Key>, Value>  {
      *
      * @return a string representation of this B-tree.
      */
+    @Override
     public String toString() {
         return toString(root, height, "") + "\n";
     }
@@ -227,7 +246,9 @@ public class BTree<Key extends Comparable<Key>, Value>  {
         }
         else {
             for (int j = 0; j < h.m; j++) {
-                if (j > 0) s.append(indent + "(" + children[j].key + ")\n");
+                if (j > 0) {
+	                s.append(indent + "(" + children[j].key + ")\n");
+                }
                 s.append(toString(children[j].next, ht-1, indent + "     "));
             }
         }

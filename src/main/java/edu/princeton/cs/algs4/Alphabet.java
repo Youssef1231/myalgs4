@@ -93,20 +93,23 @@ public class Alphabet {
         boolean[] unicode = new boolean[Character.MAX_VALUE];
         for (int i = 0; i < alpha.length(); i++) {
             char c = alpha.charAt(i);
-            if (unicode[c])
-                throw new IllegalArgumentException("Illegal alphabet: repeated character = '" + c + "'");
+            if (unicode[c]) {
+	            throw new IllegalArgumentException("Illegal alphabet: repeated character = '" + c + "'");
+            }
             unicode[c] = true;
         }
 
         alphabet = alpha.toCharArray();
         R = alpha.length();
         inverse = new int[Character.MAX_VALUE];
-        for (int i = 0; i < inverse.length; i++)
-            inverse[i] = -1;
+        for (int i = 0; i < inverse.length; i++) {
+	        inverse[i] = -1;
+        }
 
         // can't use char since R can be as big as 65,536
-        for (int c = 0; c < R; c++)
-            inverse[alphabet[c]] = c;
+        for (int c = 0; c < R; c++) {
+	        inverse[alphabet[c]] = c;
+        }
     }
 
     /**
@@ -120,10 +123,12 @@ public class Alphabet {
         inverse = new int[R];
 
         // can't use char since R can be as big as 65,536
-        for (int i = 0; i < R; i++)
-            alphabet[i] = (char) i;
-        for (int i = 0; i < R; i++)
-            inverse[i] = i;
+        for (int i = 0; i < R; i++) {
+	        alphabet[i] = (char) i;
+        }
+        for (int i = 0; i < R; i++) {
+	        inverse[i] = i;
+        }
     }
 
     /**
@@ -171,8 +176,9 @@ public class Alphabet {
      */
     public int lgR() {
         int lgR = 0;
-        for (int t = R-1; t >= 1; t /= 2)
-            lgR++;
+        for (int t = R-1; t >= 1; t /= 2) {
+	        lgR++;
+        }
         return lgR;
     }
 
@@ -201,8 +207,9 @@ public class Alphabet {
     public int[] toIndices(String s) {
         char[] source = s.toCharArray();
         int[] target  = new int[s.length()];
-        for (int i = 0; i < source.length; i++)
-            target[i] = toIndex(source[i]);
+        for (int i = 0; i < source.length; i++) {
+	        target[i] = toIndex(source[i]);
+        }
         return target;
     }
 
@@ -230,8 +237,9 @@ public class Alphabet {
      */
     public String toChars(int[] indices) {
         StringBuilder s = new StringBuilder(indices.length);
-        for (int i = 0; i < indices.length; i++)
-            s.append(toChar(indices[i]));
+        for (int i = 0; i < indices.length; i++) {
+	        s.append(toChar(indices[i]));
+        }
         return s.toString();
     }
 

@@ -60,8 +60,9 @@ public class BlackFilter {
         // read in string from standard input, printing out all exceptions
         while (!StdIn.isEmpty()) {
             String word = StdIn.readString();
-            if (!set.contains(word))
-                StdOut.println(word);
+            if (!set.contains(word)) {
+	            StdOut.println(word);
+            }
         }
     }
 }
